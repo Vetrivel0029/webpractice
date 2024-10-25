@@ -18,6 +18,20 @@
 </head>
 <body>
     <h1>HI WEB APPS</h1>
+    <form>
+        <ol>
+            <input id="firstName" type="text" class="form-control" name="firstName" placeholder="First Name">   </ol>
+            <ol> <input id="lastName" type="text" class="form-control" name="lastName" placeholder="Last Name"> </ol>
+            <ol>     <input id="userName" type="text" class="form-control" name="userName" placeholder="Username">  </ol>
+                <ol>     <input id="inputText" type="text" class="form-control" name="email" placeholder="Email"> </ol>
+                    <ol>    <input id="currentPassword" type="password" class="form-control" name="currentPassword" placeholder="Current Password"> 
+        </ol>
+
+        
+         <!-- <input type="submit"  href="/sqldata/sql.js"  onclick=SaveAccount() id="createAccountButton" class="button2" value="Create Account"></input> -->
+         <button onclick="saveAccount()">Save</button>
+        
+        </form>
     <img src="images.jpg" alt="">
     <a href="https://www.w3schools.com">Visit W3Schools</a>
     <p> Parrots (Psittaciformes), also known as psittacines (/ˈsɪtəsaɪnz/),[1][2] are birds with a strong curved beak,
@@ -30,6 +44,41 @@
          threatened by extinction, with a higher aggregate extinction risk (IUCN Red List Index) than any
           other comparable bird group.[3] Parrots have a generally pantropical distribution with several species
            inhabiting temperate regions as well. The greatest diversity of parrots is in South America[4] and Australasia.[5]</p>
+           <script>
+            function saveAccount(){
+    var mysql = require('mysql');
+    
+    var con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "abc123",
+      database: "PBSC_Parking_DB"
+    });
+    
+    con.connect(function(err) {
+      if (err) throw err;
+    console.log("connected");
+    });
+    
+    var firstName = document.getElementById("firstName");
+    var lastName = document.getElementById("lastName");
+    var psw = document.getElementById("currentPassword");
+    var userName = document.getElementById("userName");
+    var email = document.getElementById("inputText");
+    
+    
+    
+    var sql = "INSERT INTO accounts (UserName, FirstName, LastName, Email, UserPassword) VALUES ('"+userName+ "', '"+firstName+"','"+lastName+"','"+email+"','"+psw+"')";
+    con.query(sql, function (err, result) {
+        if (err) {
+            throw err;
+    
+        }
+    
+        console.log(result.affectedRows + " record(s) updated");
+      });
+    }
+           </script>
     
 </body>
 </html>
